@@ -87,13 +87,12 @@ public class Controller implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		fileMenu.setGraphic(new ImageView("file:///C:/Users/SAMARTHYA/PhotoEditor/logo/file.png"));
+		fileMenu.setGraphic(new ImageView("file:/C:/Users/SAMARTHYA/PhotoEditor/logo/file.png"));
 		
 		for(String s : fontArray) {
 			fonts.add(s);
 		}
 		comboBox.getItems().addAll(fonts);
-		//textArea.setFont(new Font(name, size));
 	}
 	
 }
