@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Time;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -19,6 +20,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
@@ -62,6 +64,8 @@ public class Controller implements Initializable {
 	@FXML
 	ToggleButton italicToggle;
 	
+	@FXML
+	Label timeLabel;
 	
 	public void newFile(ActionEvent e) {
 		textArea.setText("");
@@ -179,6 +183,13 @@ public class Controller implements Initializable {
 		}
 		
 		comboBox.getItems().addAll(fonts);
+		
+		getTime();
+	}
+	
+	public void getTime() {
+		Time time = new Time(System.currentTimeMillis());
+		timeLabel.setText(time.toString());
 	}
 	
 }
