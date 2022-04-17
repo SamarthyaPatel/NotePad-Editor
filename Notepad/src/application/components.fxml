@@ -15,26 +15,7 @@
 
 <AnchorPane fx:id="anchorPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
-      <ToggleButton fx:id="boldToggle" layoutX="484.0" mnemonicParsing="false" onAction="#boldText" prefHeight="26.0" prefWidth="24.0" text="B">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-         <effect>
-            <Blend mode="OVERLAY" />
-         </effect></ToggleButton>
-      <ToggleButton fx:id="italicToggle" layoutX="510.0" mnemonicParsing="false" onAction="#italicText" prefHeight="26.0" prefWidth="24.0" text="I">
-         <font>
-            <Font name="System Italic" size="12.0" />
-         </font>
-         <effect>
-            <Blend mode="OVERLAY" />
-         </effect></ToggleButton>
-      <ComboBox fx:id="comboBox" layoutX="313.0" onAction="#changeFont" prefHeight="26.0" prefWidth="169.0" promptText="Font">
-         <effect>
-            <Blend mode="OVERLAY" />
-         </effect>
-      </ComboBox>
-      <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="312.0">
+      <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="800.0">
         <menus>
           <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
             <items>
@@ -58,51 +39,73 @@
                      </accelerator></MenuItem>
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Undo">
+                  <MenuItem mnemonicParsing="false" onAction="#undo" text="Undo">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Redo">
+                  <MenuItem mnemonicParsing="false" onAction="#redo" text="Redo">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Y" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Cut">
+                  <MenuItem mnemonicParsing="false" onAction="#cut" text="Cut">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Copy">
+                  <MenuItem mnemonicParsing="false" onAction="#copy" text="Copy">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Paste">
+                  <MenuItem mnemonicParsing="false" onAction="#paste" text="Paste">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-              <MenuItem mnemonicParsing="false" text="Time/Date" />
+              <MenuItem mnemonicParsing="false" onAction="#addTimeDate" text="Time/Date" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="View">
+            <Menu fx:id="viewMenu" mnemonicParsing="false" text="View">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#zoomIn" text="Zoom In" />
                   <MenuItem mnemonicParsing="false" onAction="#zoomOut" text="Zoom Out" />
               </items>
             </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
+      <ToggleButton fx:id="boldToggle" blendMode="DARKEN" layoutX="484.0" mnemonicParsing="false" onAction="#boldText" prefHeight="26.0" prefWidth="24.0" text="B">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <effect>
+            <Blend mode="OVERLAY" />
+         </effect></ToggleButton>
+      <ToggleButton fx:id="italicToggle" blendMode="DARKEN" layoutX="508.0" mnemonicParsing="false" onAction="#italicText" prefHeight="26.0" prefWidth="24.0" text="I">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+         <effect>
+            <Blend mode="OVERLAY" />
+         </effect></ToggleButton>
       <TextArea fx:id="textArea" layoutY="26.0" prefHeight="574.0" prefWidth="800.0">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </TextArea>
-      <Label fx:id="timeLabel" layoutX="629.0" prefHeight="26.0" prefWidth="60.0" />
+      <ComboBox fx:id="comboBox" blendMode="DARKEN" layoutX="315.0" onAction="#changeFont" prefHeight="25.0" prefWidth="169.0" promptText="Font">
+         <effect>
+            <Blend mode="OVERLAY" />
+         </effect>
+      </ComboBox>
+      <Label fx:id="timeLabel" alignment="CENTER" blendMode="DARKEN" contentDisplay="CENTER" layoutX="610.0" prefHeight="26.0" prefWidth="100.0" textAlignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
    </children>
 </AnchorPane>

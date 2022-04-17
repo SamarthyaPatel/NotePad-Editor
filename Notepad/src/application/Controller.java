@@ -6,10 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,11 +19,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.IndexRange;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -41,6 +46,11 @@ public class Controller implements Initializable {
 	private boolean italic = false;
 	private FontWeight bSyntax;
 	private FontPosture iSyntax;
+	private String time;
+	private SimpleDateFormat timeFormat;
+	private SimpleDateFormat dateFormat;
+	private Thread clock;
+	private boolean app;
 	
 	private String[] fontArray = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 	private ObservableList<String> fonts = FXCollections.observableArrayList();
@@ -51,12 +61,20 @@ public class Controller implements Initializable {
 	@FXML
 	TextArea textArea;
 	
-	
 	@FXML
 	AnchorPane anchorPane;
 	
 	@FXML
 	Menu fileMenu;
+	
+	@FXML 
+	Menu editMenu;
+	
+	@FXML
+	Menu viewMenu;
+	
+	@FXML
+	Menu helpMenu;
 	
 	@FXML
 	ToggleButton boldToggle;
@@ -110,8 +128,8 @@ public class Controller implements Initializable {
 		
 		if(alert.showAndWait().get() == ButtonType.OK) {
 			stage = (Stage) anchorPane.getScene().getWindow();
-			System.out.println("Closed.");
 			stage.close();
+			app = false;
 		}
 	}
 	
@@ -173,10 +191,43 @@ public class Controller implements Initializable {
 		}
 	}
 	
+	public void addTimeDate(ActionEvent e) {
+		String time = timeFormat.format(new Date());
+		String date = dateFormat.format(new Date());
+		textArea.setText(textArea.getText() + "[" + time + "  |  " + date + "]");
+	}
+	
+	public void undo(ActionEvent e) {
+		
+	}
+	
+	public void redo(ActionEvent e) {
+		
+	}
+	
+	public void cut(ActionEvent e) {
+		
+	}
+	
+	public void copy(ActionEvent e) {
+		String text = textArea.getSelectedText();
+		Clipboard clipboard = Clipboard.getSystemClipboard();
+		ClipboardContent content = new ClipboardContent();
+		content.putString(text);
+		clipboard.setContent(content);
+	}
+	
+	public void paste(ActionEvent e) {
+		
+	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		fileMenu.setGraphic(new ImageView("file:/C:/Users/SAMARTHYA/PhotoEditor/logo/file.png"));
+		fileMenu.setGraphic(new ImageView("images/file.png"));
+		editMenu.setGraphic(new ImageView("images/edit.png"));
+		viewMenu.setGraphic(new ImageView("images/view.png"));
+		helpMenu.setGraphic(new ImageView("images/help.png"));
 		
 		for(String s : fontArray) {
 			fonts.add(s);
@@ -184,12 +235,28 @@ public class Controller implements Initializable {
 		
 		comboBox.getItems().addAll(fonts);
 		
-		getTime();
+		timeFormat = new SimpleDateFormat("HH:mm:ss");
+		dateFormat = new SimpleDateFormat("d MMMM y");
+		
+		app = true;
+		time();
 	}
 	
-	public void getTime() {
-		Time time = new Time(System.currentTimeMillis());
-		timeLabel.setText(time.toString());
+	public void time() {
+		clock = new Thread(() -> {
+			while (app != false) {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+				}
+				time = timeFormat.format(new Date());
+				
+				Platform.runLater(() -> {
+					timeLabel.setText(time);
+				});
+			}
+		});
+		clock.start();
 	}
 	
 }
