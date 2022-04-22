@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
-      <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="800.0">
+      <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
             <items>
@@ -24,11 +24,11 @@
                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#open" text="Open">
+                  <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem mnemonicParsing="false" onAction="#save" text="Save">
+                  <MenuItem mnemonicParsing="false" onAction="#saveFile" text="Save">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
@@ -50,6 +50,11 @@
                         <KeyCodeCombination alt="UP" code="Y" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#selectAll" text="Select All">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
                   <MenuItem mnemonicParsing="false" onAction="#cut" text="Cut">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
@@ -70,42 +75,46 @@
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#zoomIn" text="Zoom In" />
                   <MenuItem mnemonicParsing="false" onAction="#zoomOut" text="Zoom Out" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#wrapText" text="Wrap text" />
+              </items>
+            </Menu>
+            <Menu fx:id="fontMenu" mnemonicParsing="false" text="Font">
+              <items>
+                  <Menu fx:id="fontSubMenu" mnemonicParsing="false" onAction="#changeFont" text="Font Names">
+                     <items>
+                        <RadioMenuItem fx:id="a" mnemonicParsing="false" onAction="#changeFont" text="Arial">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="radioGroup" />
+                           </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem fx:id="c" mnemonicParsing="false" text="Calibri" toggleGroup="$radioGroup" />
+                        <RadioMenuItem fx:id="h" mnemonicParsing="false" text="Helvetica" toggleGroup="$radioGroup" />
+                        <RadioMenuItem fx:id="l" mnemonicParsing="false" text="Lucida Handwriting" toggleGroup="$radioGroup" />
+                        <RadioMenuItem fx:id="r" mnemonicParsing="false" text="Rockwell" toggleGroup="$radioGroup" />
+                        <RadioMenuItem fx:id="v" mnemonicParsing="false" text="Verdana" toggleGroup="$radioGroup" />
+                     </items>
+                  </Menu>
+                  <CheckMenuItem fx:id="boldCheckBox" mnemonicParsing="false" onAction="#boldText" text="Bold" />
+                  <CheckMenuItem fx:id="italicCheckBox" mnemonicParsing="false" onAction="#italicText" text="Italic" />
               </items>
             </Menu>
           <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#displayAbout" text="About" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
-      <ToggleButton fx:id="boldToggle" blendMode="DARKEN" layoutX="484.0" mnemonicParsing="false" onAction="#boldText" prefHeight="26.0" prefWidth="24.0" text="B">
+      <Label fx:id="timeLabel" alignment="BOTTOM_CENTER" blendMode="DARKEN" contentDisplay="BOTTOM" graphicTextGap="0.0" layoutX="610.0" prefHeight="26.0" prefWidth="60.0" textAlignment="CENTER" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0">
          <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-         <effect>
-            <Blend mode="OVERLAY" />
-         </effect></ToggleButton>
-      <ToggleButton fx:id="italicToggle" blendMode="DARKEN" layoutX="508.0" mnemonicParsing="false" onAction="#italicText" prefHeight="26.0" prefWidth="24.0" text="I">
-         <font>
-            <Font name="System Italic" size="12.0" />
-         </font>
-         <effect>
-            <Blend mode="OVERLAY" />
-         </effect></ToggleButton>
-      <TextArea fx:id="textArea" layoutY="26.0" prefHeight="574.0" prefWidth="800.0">
+            <Font name="Malgun Gothic" size="14.5" />
+         </font></Label>
+      <Label fx:id="clockLabel" layoutX="610.0" prefHeight="26.0" prefWidth="26.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="1.0" />
+      <TextArea fx:id="textArea" layoutY="26.0" prefHeight="574.0" prefWidth="801.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.5">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </TextArea>
-      <ComboBox fx:id="comboBox" blendMode="DARKEN" layoutX="315.0" onAction="#changeFont" prefHeight="25.0" prefWidth="169.0" promptText="Font">
-         <effect>
-            <Blend mode="OVERLAY" />
-         </effect>
-      </ComboBox>
-      <Label fx:id="timeLabel" alignment="CENTER" blendMode="DARKEN" contentDisplay="CENTER" layoutX="610.0" prefHeight="26.0" prefWidth="100.0" textAlignment="CENTER">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
    </children>
 </AnchorPane>
