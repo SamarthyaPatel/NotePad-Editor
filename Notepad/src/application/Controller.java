@@ -50,7 +50,7 @@ public class Controller implements Initializable {
 	private static final String UNSAVED_ALERT = "Would you like to save the changes before closing?";
 	private static final String CLOSE_ALERT_HEADER = "You are about to close the file.";
 	private static final String CLOSE_ALERT_CONTENT = "Are you sure you want to close?";
-	private static final String ABOUT_CONTENT = "The Notepad-Editor is made by the future Computer Scientist Samarthya Patel as a project in April 2022.\n\nThe creator currently studies at Swansea University.\n\nYou can not only do basic operations of a notepad but also do Font editing, adding time-date stamps, and more.\n\nHave a great time .TXTing.";
+	private static final String ABOUT_CONTENT = "The Notepad-Editor is made by Samarthya Patel as a project in April 2022.\n\nThe rising developer currently studies at Swansea University.\n\nIn this application you can not only do basic operations of a notepad but also do Font editing, adding time-date stamps, and has other features too.\n\nHave a great time (.txt)ing.";
 
 	private static final String LOGO_IMAGE = "images/logo.png";
 	private static final String ABOUT_IMAGE = "images/aboutLogo.png";
@@ -254,7 +254,7 @@ public class Controller implements Initializable {
 		setCheckMenuItems();
 
 		textArea.setFont(Font.font(name, bSyntax, iSyntax, size));
-
+		
 	}
 
 	/***
@@ -288,6 +288,10 @@ public class Controller implements Initializable {
 		}
 
 		textArea.setFont(Font.font(name, bSyntax, iSyntax, size));
+		
+		int length = textArea.getLength();
+		
+		textArea.replaceText(length - TWO, length, textArea.getText(length - TWO, length));;
 
 	}
 
@@ -362,7 +366,7 @@ public class Controller implements Initializable {
 	}
 
 	/***
-	 * Method to redo the actioin
+	 * Method to redo the action
 	 * @param e
 	 */
 	public void redo(ActionEvent e) {
