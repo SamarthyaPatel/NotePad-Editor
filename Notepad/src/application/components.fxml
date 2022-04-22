@@ -76,7 +76,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#zoomIn" text="Zoom In" />
                   <MenuItem mnemonicParsing="false" onAction="#zoomOut" text="Zoom Out" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#wrapText" text="Wrap text" />
+                  <CheckMenuItem fx:id="wrapCheck" mnemonicParsing="false" onAction="#wrapText" text="Wrap text" />
               </items>
             </Menu>
             <Menu fx:id="fontMenu" mnemonicParsing="false" text="Font">
