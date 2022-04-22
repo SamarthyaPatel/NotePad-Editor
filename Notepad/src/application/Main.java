@@ -1,14 +1,25 @@
 package application;
 	
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
+
+/***
+ * <p> File name: Main.java</p>
+ * <p> Creation date: 10.04.2022</p>
+ * <p> Last modification date: 22.04.2022</p>
+ * <p> Purpose of the program: Handling the GUI of the application by using components.fxml file and doing the needful requested by the user.</p>
+ * <p> Version history: 1.0 - pure code; 2.0 - close request code updated; 3.0 - commented code</p>
+ * 
+ * @author Samarthya Patel
+ * @version 3.0
+ */
 
 public class Main extends Application {
 	
@@ -21,23 +32,24 @@ public class Main extends Application {
 			
 			stage.setTitle("Notepad");
 			
-			Alert alert = new Alert(AlertType.CONFIRMATION);
-			alert.setTitle("Close");
-			alert.setHeaderText("You are about to close the file.");
-			alert.setContentText("Are you sure you want to close?");
-			stage.setOnCloseRequest(e -> {
-				if(alert.showAndWait().get() == ButtonType.OK) {
-					stage.getScene().getWindow();
-					stage.close();
-				}
-			});
+			stage.setMinWidth(600);
+			stage.setMinHeight(65);
 			
 			stage.getIcons().add(new Image("images/logo.png"));
+			
+			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			    @Override
+			    public void handle(WindowEvent e) {
+			     Platform.exit();
+			     System.exit(0);
+			    }
+			  });
 			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			stage.setScene(scene);
 			stage.show();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
