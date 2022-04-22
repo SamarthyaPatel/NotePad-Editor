@@ -1,5 +1,37 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
 .root {
+	-fx-background: "lightskyblue";
+}
+
+.menu-bar {
+	-fx-background-color: lightskyblue;
+}
+
+.menu {
+	-fx-font-family: Malgun Gothic;
 	-fx-background: "white";
+	-fx-font-size: 14;
+}
+
+.menu-item {
+	-fx-background: lightskyblue;
+}
+
+.dialog {
+	-fx-background: white;
+	-fx-font-size: 13;
+}
+
+.dialog > *.content.label {
+	-fx-font-size: 13px;
+	-fx-text-alignment: center;
+}
+
+.dialog:header *.header-panel *.label {
+	-fx-font-weight: bold;
+	-fx-alignment: center;
+}
+
+.button {
+	-fx-font-size: 13px;
 }
